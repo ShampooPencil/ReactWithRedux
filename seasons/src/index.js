@@ -7,8 +7,12 @@ class App extends React.Component {
     constructor(props) {
         super(props)//i think its just reference from parent..constructor(props)
 
-        this.state = { lat: null } //default null(updated just put a random numb)
-
+        this.state = {
+            lat: null,
+            errorMessage: ''
+        } //default null(updated just put a random numb)
+        //also, when we update states, we are just changing them but 
+        //*NOT REMOVING/DELETING THEM
         window.navigator.geolocation.getCurrentPosition(
             position => {
                 this.setState({ lat: position.coords.latitude })
@@ -20,11 +24,32 @@ class App extends React.Component {
                 //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
                 //this.state.lat = position.coords.latitude//basically dont change state without using setState
             },
-            (err) => console.log(err)
+            (err) => {
+                this.setState({
+                    errorMessage: err.message
+                })
+            }
         )
     }
     render() {
-        return <div>Latitude: {this.state.lat} </div>
+        if (this.state.errorMessage && !this.state.lat) {
+            return <div>Error: {this.state.errorMessage}</div>
+        }
+        if (!this.state.errorMessage && this.state.lat) {
+            return <div>Latitude: {this.state.lat} </div>
+        }
+        return <div>Loading!</div>
+
+        // return (
+        //     <div>
+        //         <b>
+        //             {this.state.errorMessage ? (
+        //                 <b>Error: {this.state.errorMessage}</b>) : (
+        //                     <b>Latitude: {this.state.lat} </b>
+        //                 )}
+        //         </b>
+        //     </div>
+        // )
     }
 }
 ReactDOM.render(

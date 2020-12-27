@@ -4,40 +4,34 @@ import SeasonDisplay from './SeasonDisplay'
 
 
 class App extends React.Component {
-    constructor(props) {
-        super(props)//i think its just reference from parent..constructor(props)
+    // constructor(props) {
+    //     super(props)//i think its just reference from parent..constructor(props)
 
-        this.state = {
-            lat: null,
-            errorMessage: ''
-        } //default null(updated just put a random numb)
-        //also, when we update states, we are just changing them but 
-        //*NOT REMOVING/DELETING THEM
+    //     this.state = {
+    //         lat: null,
+    //         errorMessage: ''
+    //     } //default null(updated just put a random numb)
+    //also, when we update states, we are just changing them but 
+
+    state = { lat: null, errorMessage: '' }
+
+
+    componentDidMount() {
         window.navigator.geolocation.getCurrentPosition(
-            position => {
-                this.setState({ lat: position.coords.latitude })
-
-                //We did not!! because it is straight to state but should
-                // be changing state using setState
-                // The only time you can do that is setting a state originally
-                // inside the this.state's object above(right under super(props))
-                //\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
-                //this.state.lat = position.coords.latitude//basically dont change state without using setState
-            },
-            (err) => {
-                this.setState({
-                    errorMessage: err.message
-                })
-            }
+            position => this.setState({ lat: position.coords.latitude }),
+            err => this.setState({ errorMessage: err.message })
         )
-    }
-    render() {
 
+    }
+
+    render() {
+        console.log(this.state.lat)
         if (this.state.errorMessage && !this.state.lat) {
-            return <div>Error: {this.state.errorMessage}</div>
+            return <div><h1>ERROR: {this.state.errorMessage}</h1></div>
         }
         if (!this.state.errorMessage && this.state.lat) {
-            return <div>Latitude: {this.state.lat} </div>
+            console.log(!this.state.errorMessage)
+            return <SeasonDisplay lat={this.state.lat} />
         }
         return <div>Loading!</div>
 

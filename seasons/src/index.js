@@ -34,17 +34,6 @@ class App extends React.Component {
             return <SeasonDisplay lat={this.state.lat} />
         }
         return <div>Loading!</div>
-
-        // return (
-        //     <div>
-        //         <b>
-        //             {this.state.errorMessage ? (
-        //                 <b>Error: {this.state.errorMessage}</b>) : (
-        //                     <b>Latitude: {this.state.lat} </b>
-        //                 )}
-        //         </b>
-        //     </div>
-        // )
     }
 }
 ReactDOM.render(

@@ -1,4 +1,6 @@
+import './SeasonDisplay.css'
 import React from 'react'
+
 
 const seasonConfig = {
     summer: {
@@ -33,13 +35,13 @@ const SeasonDisplay = (props) => {
     // console.log(seasonConfig.winter)
 
     return (
-        <div>
+        <div className={`season-display ${season}`}>
             {/* {season === 'winter' ? 'Burr, it is Chilly!' : 'Lets hit the beach'} */}
             {/* You can choose above or below(same thing) but
                 but I think assiging the terny on var is easier and more comfortable */}
-            <i className={`${iconName} icon`} />
+            <i className={`icon-left massive ${iconName} icon`} />
             <h1>{text}</h1>
-            <i className={`${iconName} icon`} />
+            <i className={`icon-right massive ${iconName} icon`} />
         </div>
     )
 }
